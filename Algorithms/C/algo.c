@@ -1,77 +1,41 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-
-int snakeWaterGun(char you, char comp){
-    // returns 1 if you win, -1 if you lose and 0 if draw
-    // Condition for draw
-    // Cases covered:
-    // ss
-    // gg
-    // ww
-    if(you == comp){
-        return 0;
+#include iostream
+using namespace std;
+ 
+ Function to find the maximum sum of a contiguous subarray
+ in a given integer array
+int kadane(int arr[], int n)
+{
+     stores the maximum sum subarray found so far
+    int max_so_far = 0;
+ 
+     stores the maximum sum of subarray ending at the current position
+    int max_ending_here = 0;
+ 
+     traverse the given array
+    for (int i = 0; i  n; i++)
+    {
+         update the maximum sum of subarray ending at index `i` (by adding the
+         current element to maximum sum ending at previous index `i-1`)
+        max_ending_here = max_ending_here + arr[i];
+ 
+         if the maximum sum is negative, set it to 0 (which represents
+         an empty subarray)
+        max_ending_here = max(max_ending_here, 0);
+ 
+         update the result if the current subarray sum is found to be greater
+        max_so_far = max(max_so_far, max_ending_here);
     }
-
-    // Non-draw conditions
-    // Cases covered:
-    // sg
-    // gs
-    // sw 
-    // ws
-    // gw
-    // wg
-    
-
-    if(you=='s' && comp=='g'){
-        return -1;
-    }
-    else if(you=='g' && comp=='s'){
-        return 1;
-    }
-
-    if(you=='s' && comp=='w'){
-        return 1;
-    }
-    else if(you=='w' && comp=='s'){
-        return -1;
-    }
-
-    if(you=='g' && comp=='w'){
-        return -1;
-    }
-    else if(you=='w' && comp=='g'){
-        return 1;
-    }
-
+ 
+    return max_so_far;
 }
-int main(){
-    char you, comp;
-    srand(time(0));
-    int number = rand()%100 + 1;
-
-    if(number<33){
-        comp = 's';
-    }
-    else if(number>33 && number<66){
-        comp='w';
-    }
-    else{
-        comp='g';
-    }
-    
-    printf("Enter 's' for snake, 'w' for water and 'g' for gun\n");
-    scanf("%c", &you);
-    int result = snakeWaterGun(you, comp);
-    if(result ==0){
-        printf("Game draw!\n");
-    }
-    else if(result==1){
-        printf("You win!\n");
-    }
-    else{
-        printf("You Lose!\n");
-    }
-    printf("You chose %c and computer chose %c. ", you, comp);
+ 
+int main()
+{
+    int arr[] = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+    int n = sizeof(arr)sizeof(arr[0]);
+ 
+    cout  The maximum sum of a contiguous subarray is  
+            kadane(arr, n);
+ 
     return 0;
 }
